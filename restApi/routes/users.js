@@ -28,6 +28,18 @@ module.exports = function(app) {
         });
     };
 
+    //GET - Return a User with specified email
+    findByEmail = function(req, res) {
+        User.findById(req.params.email, function(err, user) {
+            if (!err) {
+                console.log('GET /user/' + req.params.email);
+                res.send(user);
+            } else {
+                console.log('ERROR: ' + err);
+            }
+        });
+    };
+
     //GET - Return a User with specified username
     findByUsername = function(req, res) {
         User.findById(req.params.username, function(err, user) {
@@ -108,6 +120,7 @@ module.exports = function(app) {
     //Link routes and functions
     app.get('/users', findAllUsers);
     app.get('/user/:id', findById);
+    app.get('/user/:email', findByEmail);
     app.get('/user/:username', findByUsername);
     app.post('/user', addUser);
     app.put('/user/:id', updateUser);
