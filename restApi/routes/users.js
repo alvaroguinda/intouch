@@ -34,12 +34,14 @@ module.exports = function(app) {
         console.log(req.body);
 
         var user = new User({
-            username: req.body.username,
-            password: req.body.password,
-            country: req.body.country,
             name: req.body.name,
             email: req.body.email,
-            type: req.body.type
+            password: req.body.password,
+            phone: req.body.phone,
+            address: req.body.address,
+            identification: req.body.identification,
+            picture: req.body.picture,
+            description: req.body.description,
         });
 
         user.save(function(err) {
@@ -56,12 +58,14 @@ module.exports = function(app) {
     //PUT - Update a register already exists
     updateUser = function(req, res) {
         User.findById(req.params.id, function(err, user) {
-            user.username = req.body.petId;
-            user.password = req.body.password;
-            user.country = req.body.country;
-            user.name = req.body.name;
-            user.email = req.body.email;
-            user.type = req.body.type;
+            name: req.body.name;
+            email: req.body.email;
+            password: req.body.password;
+            phone: req.body.phone;
+            address: req.body.address;
+            identification: req.body.identification;
+            picture: req.body.picture;
+            description: req.body.description;
 
             user.save(function(err) {
                 if (!err) {
