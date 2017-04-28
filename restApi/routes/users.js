@@ -28,6 +28,18 @@ module.exports = function(app) {
         });
     };
 
+    //GET - Return a User with specified Email
+    findById = function(req, res) {
+        User.findById(req.params.email, function(err, user) {
+            if (!err) {
+                console.log('GET /user/' + req.params.email);
+                res.send(user);
+            } else {
+                console.log('ERROR: ' + err);
+            }
+        });
+    };
+
     //POST - Insert a new User in the DB
     addUser = function(req, res) {
         console.log('POST');
@@ -94,6 +106,7 @@ module.exports = function(app) {
     //Link routes and functions
     app.get('/users', findAllUsers);
     app.get('/user/:id', findById);
+    app.get('/user/:email', findByEmail);
     app.post('/user', addUser);
     app.put('/user/:id', updateUser);
     app.delete('/user/:id', deleteUser);
