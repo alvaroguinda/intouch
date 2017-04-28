@@ -28,11 +28,11 @@ module.exports = function(app) {
         });
     };
 
-    //GET - Return a User with specified Email
-    findById = function(req, res) {
-        User.findById(req.params.email, function(err, user) {
+    //GET - Return a User with specified username
+    findByUsername = function(req, res) {
+        User.findById(req.params.username, function(err, user) {
             if (!err) {
-                console.log('GET /user/' + req.params.email);
+                console.log('GET /user/' + req.params.username);
                 res.send(user);
             } else {
                 console.log('ERROR: ' + err);
@@ -48,6 +48,7 @@ module.exports = function(app) {
         var user = new User({
             name: req.body.name,
             email: req.body.email,
+            username: req.body.username,
             password: req.body.password,
             phone: req.body.phone,
             address: req.body.address,
@@ -72,6 +73,7 @@ module.exports = function(app) {
         User.findById(req.params.id, function(err, user) {
             name: req.body.name;
             email: req.body.email;
+            username: req.body.username;
             password: req.body.password;
             phone: req.body.phone;
             address: req.body.address;
@@ -106,7 +108,7 @@ module.exports = function(app) {
     //Link routes and functions
     app.get('/users', findAllUsers);
     app.get('/user/:id', findById);
-    app.get('/user/:email', findByEmail);
+    app.get('/user/:username', findByUsername);
     app.post('/user', addUser);
     app.put('/user/:id', updateUser);
     app.delete('/user/:id', deleteUser);
