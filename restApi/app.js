@@ -17,13 +17,13 @@ app.get('/', function(req, res) {
 });
 
 routesUsers = require('./routes/users')(app);
-routesTrainer = require('./routes/trainer')(app);
-routesConsumer = require('./routes/consumer')(app);
-routesTutorial = require('./routes/tutorial')(app);
-routesClasses = require('./routes/classes')(app);
-routesQualification = require('./routes/qualification')(app);
-routesCategory = require('./routes/category')(app);
-routesCalendar = require('./routes/calendar')(app);
+//routesTrainer = require('./routes/trainer')(app);
+//routesConsumer = require('./routes/consumer')(app);
+//routesTutorial = require('./routes/tutorial')(app);
+//routesClasses = require('./routes/classes')(app);
+//routesQualification = require('./routes/qualification')(app);
+//routesCategory = require('./routes/category')(app);
+//routesCalendar = require('./routes/calendar')(app);
 
 mongoose.connect('mongodb://localhost/users', function(err, res) {
     if (err) {
