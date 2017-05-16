@@ -30,9 +30,9 @@ module.exports = function(app) {
 
     //GET - Return a User with specified email
     findByEmail = function(req, res) {
-        User.findById(req.params.email, function(err, user) {
+        User.findOne({ 'email': req.params.email }, function(err, user) {
             if (!err) {
-                console.log('GET /user/' + req.params.email);
+                console.log('GET /user/email/' + req.params.email);
                 res.send(user);
             } else {
                 console.log('ERROR: ' + err);
@@ -42,9 +42,9 @@ module.exports = function(app) {
 
     //GET - Return a User with specified username
     findByUsername = function(req, res) {
-        User.findById(req.params.username, function(err, user) {
+        User.findOne({ 'username': req.params.username }, function(err, user) {
             if (!err) {
-                console.log('GET /user/' + req.params.username);
+                console.log('GET /user/username/' + req.params.username);
                 res.send(user);
             } else {
                 console.log('ERROR: ' + err);
@@ -120,8 +120,8 @@ module.exports = function(app) {
     //Link routes and functions
     app.get('/users', findAllUsers);
     app.get('/user/:id', findById);
-    app.get('/user/:email', findByEmail);
-    app.get('/user/:username', findByUsername);
+    app.get('/user/email/:email', findByEmail);
+    app.get('/user/username/:username', findByUsername);
     app.post('/user', addUser);
     app.put('/user/:id', updateUser);
     app.delete('/user/:id', deleteUser);
