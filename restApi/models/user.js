@@ -11,7 +11,6 @@ var userSchema = new Schema({
     identification: { type: String },
     picture: { type: String },
     description: { type: String },
-    //type: { type: String, enum: ['Trainer', 'Consumer'] }
 });
 
 module.exports = mongoose.model('User', userSchema);
