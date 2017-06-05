@@ -16,35 +16,11 @@ module.exports = function(app) {
         });
     };
 
-    //GET - Return a Trainer with specified ID
-    findById = function(req, res) {
-        Trainer.findById(req.params.id, function(err, trainer) {
-            if (!err) {
-                console.log('GET /trainer/' + req.params.id);
-                res.send(trainer);
-            } else {
-                console.log('ERROR: ' + err);
-            }
-        });
-    };
-
     //GET - Return a Trainer with specified email
     findByEmail = function(req, res) {
         Trainer.findOne({ 'email': req.params.email }, function(err, trainer) {
             if (!err) {
-                console.log('GET /trainer/email/' + req.params.email);
-                res.send(trainer);
-            } else {
-                console.log('ERROR: ' + err);
-            }
-        });
-    };
-
-    //GET - Return a Trainer with specified trainername
-    findByTrainername = function(req, res) {
-        Trainer.findOne({ 'trainername': req.params.trainername }, function(err, trainer) {
-            if (!err) {
-                console.log('GET /trainer/trainername/' + req.params.trainername);
+                console.log('GET /trainer/' + req.params.email);
                 res.send(trainer);
             } else {
                 console.log('ERROR: ' + err);
@@ -58,15 +34,15 @@ module.exports = function(app) {
         console.log(req.body);
 
         var trainer = new Trainer({
-            name: req.body.name,
             email: req.body.email,
-            trainername: req.body.trainername,
-            password: req.body.password,
+            name: req.body.name,
+            habilities: req.body.habilities,
             phone: req.body.phone,
             address: req.body.address,
             identification: req.body.identification,
             picture: req.body.picture,
             description: req.body.description,
+            password: req.body.password,
         });
 
         trainer.save(function(err) {
@@ -82,16 +58,16 @@ module.exports = function(app) {
 
     //PUT - Update a register already exists
     updateTrainer = function(req, res) {
-        Trainer.findById(req.params.id, function(err, trainer) {
-            name: req.body.name;
+        Trainer.findById(req.params.email, function(err, trainer) {
             email: req.body.email;
-            trainername: req.body.trainername;
-            password: req.body.password;
+            name: req.body.name;
+            habilities: req.body.habilities;
             phone: req.body.phone;
             address: req.body.address;
             identification: req.body.identification;
             picture: req.body.picture;
             description: req.body.description;
+            password: req.body.password;
 
             trainer.save(function(err) {
                 if (!err) {
@@ -119,10 +95,8 @@ module.exports = function(app) {
 
     //Link routes and functions
     app.get('/trainers', findAllTrainers);
-    app.get('/trainer/:id', findById);
-    app.get('/trainer/email/:email', findByEmail);
-    app.get('/trainer/trainername/:trainername', findByTrainername);
+    app.get('/trainer/:email', findByEmail);
     app.post('/trainer', addTrainer);
-    app.put('/trainer/:id', updateTrainer);
-    app.delete('/trainer/:id', deleteTrainer);
+    app.put('/trainer/:email', updateTrainer);
+    app.delete('/trainer/:email', deleteTrainer);
 }

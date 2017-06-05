@@ -16,35 +16,11 @@ module.exports = function(app) {
         });
     };
 
-    //GET - Return a User with specified ID
-    findById = function(req, res) {
-        User.findById(req.params.id, function(err, user) {
-            if (!err) {
-                console.log('GET /user/' + req.params.id);
-                res.send(user);
-            } else {
-                console.log('ERROR: ' + err);
-            }
-        });
-    };
-
     //GET - Return a User with specified email
     findByEmail = function(req, res) {
         User.findOne({ 'email': req.params.email }, function(err, user) {
             if (!err) {
-                console.log('GET /user/email/' + req.params.email);
-                res.send(user);
-            } else {
-                console.log('ERROR: ' + err);
-            }
-        });
-    };
-
-    //GET - Return a User with specified username
-    findByUsername = function(req, res) {
-        User.findOne({ 'username': req.params.username }, function(err, user) {
-            if (!err) {
-                console.log('GET /user/username/' + req.params.username);
+                console.log('GET /user/' + req.params.email);
                 res.send(user);
             } else {
                 console.log('ERROR: ' + err);
@@ -58,15 +34,15 @@ module.exports = function(app) {
         console.log(req.body);
 
         var user = new User({
-            name: req.body.name,
             email: req.body.email,
-            username: req.body.username,
-            password: req.body.password,
+            name: req.body.name,
+            interest: req.body.interest,
             phone: req.body.phone,
             address: req.body.address,
             identification: req.body.identification,
             picture: req.body.picture,
             description: req.body.description,
+            password: req.body.password,
         });
 
         user.save(function(err) {
@@ -82,16 +58,16 @@ module.exports = function(app) {
 
     //PUT - Update a register already exists
     updateUser = function(req, res) {
-        User.findById(req.params.id, function(err, user) {
-            name: req.body.name;
+        User.findById(req.params.email, function(err, user) {
             email: req.body.email;
-            username: req.body.username;
-            password: req.body.password;
+            name: req.body.name;
+            interest: req.body.interest;
             phone: req.body.phone;
             address: req.body.address;
             identification: req.body.identification;
             picture: req.body.picture;
             description: req.body.description;
+            password: req.body.password;
 
             user.save(function(err) {
                 if (!err) {
@@ -119,10 +95,8 @@ module.exports = function(app) {
 
     //Link routes and functions
     app.get('/users', findAllUsers);
-    app.get('/user/:id', findById);
-    app.get('/user/email/:email', findByEmail);
-    app.get('/user/username/:username', findByUsername);
+    app.get('/user/:email', findByEmail);
     app.post('/user', addUser);
-    app.put('/user/:id', updateUser);
-    app.delete('/user/:id', deleteUser);
+    app.put('/user/:email', updateUser);
+    app.delete('/user/:email', deleteUser);
 }
